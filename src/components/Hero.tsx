@@ -78,7 +78,7 @@ const Hero = () => {
             </motion.a>
             
             <motion.a 
-              href="/src/files/Muthu_Ajay_ML.pdf" 
+              href="files/Muthu_Ajay_ML.pdf" 
               className="inline-flex items-center px-8 py-3 border-2 border-teal-500 text-teal-500 rounded-lg shadow-md hover:text-white relative overflow-hidden group"
               target="_blank"
               rel="noopener noreferrer"

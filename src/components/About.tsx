@@ -117,7 +117,7 @@ const About = () => {
             {/* Image container with improved styling */}
             <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl shadow-black/30 border-4 border-slate-200 dark:border-slate-700/50 transition-colors duration-300 transform hover:rotate-1 hover:shadow-teal-500/20 dark:hover:shadow-teal-400/20">
               <img
-                src="src/files/profile.jpg"
+                src="files/profile.jpg"
                 alt="Muthu Ajay - Data Scientist"
                 className="block w-full h-auto transform transition-transform duration-700 hover:scale-105"
               />
