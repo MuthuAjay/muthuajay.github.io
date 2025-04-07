@@ -103,7 +103,7 @@ const Footer = () => {
                 <Github className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/muthuajay"
+                href="https://www.linkedin.com/in/muthu-ajay-b2a817195/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white dark:hover:bg-teal-500 transition-colors"
@@ -113,7 +113,9 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </motion.a>
               <motion.a
-                href="mailto:contact@muthuajay.com"
+                href="mailto:muthuajay97@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-teal-500 hover:text-white dark:hover:bg-teal-500 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -128,7 +130,7 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Email: contact@muthuajay.com
+              Email: muthuajay97@gmail.com
             </motion.p>
           </div>
         </div>
