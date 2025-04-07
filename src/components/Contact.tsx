@@ -97,7 +97,7 @@ const Contact = () => {
             <div className="space-y-6">
               <motion.a
                 variants={itemVariants}
-                href="https://linkedin.com/in/muthuajay"
+                href="https://www.linkedin.com/in/muthu-ajay-b2a817195/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors p-3 rounded-lg bg-white/50 dark:bg-slate-700/30 hover:bg-white dark:hover:bg-slate-700 group"
@@ -129,7 +129,7 @@ const Contact = () => {
               
               <motion.a
                 variants={itemVariants}
-                href="mailto:contact@muthuajay.com"
+                href="mailto:muthuajay97@gmail.com"
                 className="flex items-center text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors p-3 rounded-lg bg-white/50 dark:bg-slate-700/30 hover:bg-white dark:hover:bg-slate-700 group"
                 onClick={() => trackEvent('social_link_clicked', { platform: 'email' })}
                 whileHover={{ 
@@ -138,7 +138,7 @@ const Contact = () => {
                 }}
               >
                 <Mail className="h-6 w-6 mr-3 text-teal-500 dark:text-teal-400 group-hover:scale-110 transition-transform" />
-                <span>contact@muthuajay.com</span>
+                <span>muthuajay97@gmail.com</span>
               </motion.a>
             </div>
             
