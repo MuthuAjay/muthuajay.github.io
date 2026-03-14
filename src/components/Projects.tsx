@@ -78,10 +78,10 @@ const projects = [
     category: ["NLP", "RAG"]
   },
   {
-    title: "Captcha & Document Classification",
-    description: "Built CNN models to classify complex, distorted alphanumeric characters from images, handling document classification with 99% accuracy. Implemented comprehensive data curation and preprocessing pipeline.",
-    technologies: ["PyTorch", "OpenCV", "Docker", "AWS"],
-    metrics: "97% accuracy on challenging visual recognition tasks, 60% reduction in processing time",
+    title: "Captcha & Document Authentication",
+    description: "Built CNN and EfficientNet architectures for document authentication and captcha classification. Achieved 95.2% accuracy on document authentication through domain-specific training optimisation that outperformed generic augmentation baselines. Comprehensive data curation, preprocessing, and augmentation pipeline for complex distorted character recognition.",
+    technologies: ["PyTorch", "EfficientNet", "OpenCV", "Docker", "AWS"],
+    metrics: "95.2% document authentication accuracy; 99% captcha classification accuracy; domain-specific training outperformed generic augmentation across all validation benchmarks",
     github: "https://github.com/MuthuAjay/Captcha_Classification",
     category: ["Computer Vision", "Classification"]
   },
@@ -94,10 +94,10 @@ const projects = [
     category: ["Research", "Data Engineering"]
   },
   {
-    title: "Signature Comparison & Verification",
-    description: "Implemented Vision Transformer (ViT) models for signature verification and forgery detection. Designed a robust comparison system with enhanced security features and adversarial attack protection.",
-    technologies: ["PyTorch", "Vision Transformers", "OpenCV", "FastAPI"],
-    metrics: "State-of-the-art performance on signature verification benchmarks, improved robustness against forgery attempts",
+    title: "Signature Analysis & Signer Identification",
+    description: "End-to-end signature analysis system using Faster R-CNN for detection, multi-modal feature extraction combining EfficientNet, VGG19, ResNet50, and ViT with adaptive fusion, and DeepLabV3-ResNet50 for foreground-background segmentation. Multi-level clustering (DBSCAN, hierarchical, threshold-based) with automated parameter optimisation and silhouette score validation achieves robust cross-document signer identification.",
+    technologies: ["PyTorch", "Faster R-CNN", "ViT", "EfficientNet", "DeepLabV3", "OpenCV"],
+    metrics: "Cross-document signer identification via adaptive multi-modal fusion of 4 architectures; precise segmentation via DeepLabV3; state-of-the-art forgery detection robustness via adversarially-trained ViT",
     github: "https://github.com/MuthuAjay/signature_comparison_project",
     category: ["Computer Vision", "Transformers"]
   },
@@ -116,6 +116,14 @@ const projects = [
     metrics: "Achieved optimized segmentation performance, successfully adapted to domains with limited data",
     github: "https://github.com/MuthuAjay/Segment_Anything",
     category: ["Computer Vision", "Segmentation"]
+  },
+  {
+    title: "AI-Powered SQL Agent",
+    description: "Multi-agent SQL intelligence system with a 4-agent architecture (Router, SQL, Analysis, Visualization) orchestrated by LangGraph. Implements natural language to SQL conversion with RAG via ChromaDB, MCP protocol compliance, multi-provider LLM support (OpenAI, Google, local LLMs), real-time PostgreSQL query execution with validation, and automatic data visualisation with statistical analysis.",
+    technologies: ["LangGraph", "ChromaDB", "PostgreSQL", "RAG", "MCP", "Python"],
+    metrics: "4-agent LangGraph orchestration with NL2SQL validated against live PostgreSQL execution; multi-provider LLM support across OpenAI, Google & local models; automatic statistical analysis and visualisation output",
+    github: "https://github.com/MuthuAjay",
+    category: ["NLP", "LLMs", "RAG"]
   },
   {
     title: "Object Detection Framework",

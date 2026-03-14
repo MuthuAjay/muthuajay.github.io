@@ -135,7 +135,7 @@ const Hero = () => {
                 { value: '3+', label: 'Years at EY' },
                 { value: '99%', label: 'Model Accuracy' },
                 { value: '60%', label: 'Faster RAG Retrieval' },
-                { value: '7+', label: 'Projects Shipped' },
+                { value: '8+', label: 'Projects Shipped' },
               ].map((stat, i) => (
                 <CountStat key={i} value={stat.value} label={stat.label} />
               ))}
