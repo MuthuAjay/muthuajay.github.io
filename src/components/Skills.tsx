@@ -59,7 +59,7 @@ const CircularSkill = ({ name, percentage, icon, color, index }) => {
           : '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
       }}
     >
-      <div className={`w-32 h-32 rounded-full flex items-center justify-center ${color} relative shadow-lg dark:shadow-xl border border-slate-200 dark:border-slate-700/50 group transition-all duration-300`}>
+      <div className={`w-32 h-32 rounded-full flex items-center justify-center ${color} relative shadow-lg dark:shadow-xl border border-warm-accent/20 dark:border-slate-700/50 group transition-all duration-300`}>
         {/* Using SVG for circular progress bar */}
         <svg className="absolute inset-0 w-full h-full -rotate-90 transform" viewBox="0 0 120 120">
           <circle
@@ -75,7 +75,7 @@ const CircularSkill = ({ name, percentage, icon, color, index }) => {
             cy="60"
             r={radius}
             fill="none"
-            stroke={theme === 'dark' ? '#2dd4bf' : '#14b8a6'}
+            stroke={theme === 'dark' ? '#2dd4bf' : '#8B9E7E'}
             strokeWidth="6"
             strokeDasharray={circumference}
             initial={{ strokeDashoffset: circumference }}
@@ -85,7 +85,7 @@ const CircularSkill = ({ name, percentage, icon, color, index }) => {
         </svg>
         
         {/* Percentage display */}
-        <div className="text-2xl font-bold text-slate-700 dark:text-slate-100 z-10">{displayPercentage}%</div>
+        <div className="text-2xl font-bold text-warm-brown dark:text-slate-100 z-10">{displayPercentage}%</div>
         
         {/* Icon with improved animation */}
         {icon && (
@@ -100,7 +100,7 @@ const CircularSkill = ({ name, percentage, icon, color, index }) => {
           </div>
         )}
       </div>
-      <div className="mt-4 text-slate-600 dark:text-slate-300 font-medium tracking-wide text-center text-sm">
+      <div className="mt-4 text-muted dark:text-slate-300 font-medium tracking-wide text-center text-sm">
         {name}
       </div>
     </motion.div>
@@ -167,6 +167,13 @@ const Skills = () => {
     }
   ].sort((a, b) => b.percentage - a.percentage);
 
+  // Tech stack badge row — quick-scan keywords recruiters search for
+  const techStack = [
+    'PyTorch', 'TensorFlow', 'scikit-learn', 'LangChain', 'HuggingFace',
+    'FastAPI', 'AWS', 'Docker', 'Pandas', 'NumPy', 'ONNX', 'Chroma DB',
+    'SQL', 'Git', 'Jupyter',
+  ];
+
   const skillSections = [
     { title: "Machine Learning, AI & Deployment", skills: mlSkills },
   ];
@@ -185,22 +192,31 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 bg-gradient-to-b from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 overflow-hidden relative">
+    <section id="skills" className="py-20 bg-warm-soft dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-800 overflow-hidden relative">
       {/* Decorative background pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold mb-6 text-center"
+        <motion.p
+          className="text-xs font-semibold tracking-widest uppercase text-sage dark:text-teal-400 mb-3 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-blue-600 dark:from-teal-400 dark:to-blue-500 relative">
+          Skills & Expertise
+        </motion.p>
+        <motion.h2
+          className="font-serif text-3xl md:text-4xl font-bold mb-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sage to-warm-accent dark:from-teal-500 dark:to-blue-600 relative">
             Technical Expertise
             <motion.span 
-              className="absolute -bottom-2 left: 0 right-0 h-1 bg-gradient-to-r from-teal-500 to-blue-600"
+              className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-sage to-warm-accent dark:from-teal-500 dark:to-blue-600"
               initial={{ width: 0, left: "50%" }}
               whileInView={{ width: "50%", left: "25%" }}
               viewport={{ once: true }}
@@ -210,7 +226,7 @@ const Skills = () => {
         </motion.h2>
         
         <motion.p 
-          className="text-slate-600 dark:text-slate-400 text-center mb-16 max-w-3xl mx-auto text-base md:text-lg"
+          className="text-muted dark:text-slate-400 text-center mb-16 max-w-3xl mx-auto text-base md:text-lg"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -220,9 +236,9 @@ const Skills = () => {
         </motion.p>
 
         {skillSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="mb-16">
+          <div key={sectionIndex} className="mb-12">
             <motion.h3
-              className="text-xl md:text-2xl font-semibold mb-12 text-center text-teal-600 dark:text-teal-400 tracking-wide"
+              className="text-xl md:text-2xl font-semibold mb-12 text-center text-sage dark:text-teal-400 tracking-wide"
               variants={titleVariants}
               initial="hidden"
               whileInView="visible"
@@ -230,7 +246,7 @@ const Skills = () => {
             >
               {section.title}
             </motion.h3>
-            
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-12 justify-items-center items-start">
               {section.skills.map((skill, index) => (
                 <CircularSkill
@@ -245,6 +261,34 @@ const Skills = () => {
             </div>
           </div>
         ))}
+
+        {/* Tech stack badge row */}
+        <motion.div
+          className="mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-xs font-semibold tracking-widest uppercase text-muted dark:text-slate-500 mb-5 text-center">
+            Also works with
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {techStack.map((tech, i) => (
+              <motion.span
+                key={tech}
+                className="px-4 py-1.5 bg-white dark:bg-slate-800 border border-warm-accent/25 dark:border-slate-700 rounded-full text-sm text-warm-brown dark:text-slate-300 shadow-sm"
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.04, duration: 0.3 }}
+                whileHover={{ scale: 1.08, borderColor: '#8B9E7E' }}
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

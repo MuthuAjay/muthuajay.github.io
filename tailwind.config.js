@@ -4,6 +4,24 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        cream: '#FDF6EC',
+        'warm-soft': '#FFFAF3',
+        'warm-brown': '#5C3D2E',
+        'warm-brown-light': '#A67C52',
+        'warm-dark': '#2C1810',
+        'warm-accent': '#D4A574',
+        sage: {
+          DEFAULT: '#8B9E7E',
+          light: '#A8C097',
+          dark: '#6B8A5E',
+        },
+        rose: '#C9907E',
+        'muted': '#8C7B6B',
+      },
+      fontFamily: {
+        serif: ['"Playfair Display"', 'Georgia', 'Cambria', 'serif'],
+      },
       animation: {
         'skill-fill': 'skill-fill 1s ease-out forwards',
         'float': 'float 6s ease-in-out infinite',

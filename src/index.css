@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  @apply bg-white dark:bg-slate-900 transition-colors duration-300;
+  @apply bg-cream dark:bg-slate-900 text-warm-brown dark:text-white transition-colors duration-300;
 }
 
 /* Fade in animation for sections */
@@ -32,15 +32,15 @@ section {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-200 dark:bg-slate-900;
+  @apply bg-cream dark:bg-slate-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-teal-500 rounded-full;
+  @apply bg-warm-accent rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-teal-600;
+  @apply bg-warm-brown;
 }
 
 /* Skill icon animations */

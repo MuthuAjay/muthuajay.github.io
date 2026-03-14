@@ -1,7 +1,72 @@
 import React, { useState } from 'react';
-import { Github, ExternalLink, Filter } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Github } from 'lucide-react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+
+const TiltCard = ({ project, theme, variants }: { project: any; theme: string; variants: any }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), { stiffness: 150, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  return (
+    <motion.div
+      className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden flex flex-col h-full border border-warm-accent/20 dark:border-slate-700 group"
+      variants={variants}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+      whileHover={{
+        boxShadow: theme === 'dark'
+          ? '0 30px 60px -15px rgba(45, 212, 191, 0.2)'
+          : '0 30px 60px -15px rgba(92, 61, 46, 0.18)',
+      }}
+    >
+      <div className="h-1.5 w-full bg-gradient-to-r from-sage to-warm-accent dark:from-teal-400 dark:to-blue-500" />
+      <div className="p-6 flex-grow">
+        <h3 className="text-xl font-semibold mb-3 text-sage dark:text-teal-400 transition-colors duration-300 group-hover:translate-x-1 transition-transform">{project.title}</h3>
+        <p className="text-warm-brown dark:text-slate-300 mb-4 flex-grow transition-colors duration-300">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.technologies.map((tech: string, i: number) => (
+            <span key={i} className="px-3 py-1 bg-warm-soft dark:bg-slate-700 rounded-full text-sm text-sage dark:text-teal-400 transition-all duration-300 hover:scale-105">
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="bg-cream dark:bg-slate-700/50 p-3 rounded mb-4 transition-colors duration-300">
+          <h4 className="text-sm font-semibold text-sage dark:text-teal-300 mb-1 transition-colors duration-300">Metrics & Outcomes:</h4>
+          <p className="text-sm text-warm-brown dark:text-slate-300 transition-colors duration-300">{project.metrics}</p>
+        </div>
+      </div>
+      <div className="p-4 bg-warm-soft/50 dark:bg-slate-700/30 flex justify-between items-center transition-colors duration-300">
+        <motion.a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center px-4 py-2 bg-cream dark:bg-slate-600 rounded-lg text-sage dark:text-teal-300 transition-all duration-300"
+          whileHover={{ scale: 1.05, backgroundColor: theme === 'dark' ? '#334155' : '#FFFAF3' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Github className="h-4 w-4 mr-2" />
+          View Code
+        </motion.a>
+        <div className="flex gap-1">
+          {project.category.map((cat: string, i: number) => (
+            <span key={i} className="text-xs text-muted dark:text-slate-400 transition-colors duration-300">
+              {cat}{i < project.category.length - 1 ? ',' : ''}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const projects = [
   {
@@ -51,13 +116,21 @@ const projects = [
     metrics: "Achieved optimized segmentation performance, successfully adapted to domains with limited data",
     github: "https://github.com/MuthuAjay/Segment_Anything",
     category: ["Computer Vision", "Segmentation"]
+  },
+  {
+    title: "Object Detection Framework",
+    description: "Built and benchmarked multiple object detection architectures from scratch — YOLOv3/v5 (custom darknet backbone, neck, head, loss, and anchor generation), DETR with DDP training, RT-DETR trained on WIDER Face with live inference, and Faster R-CNN. Also includes a custom lightweight YOLO-26 variant and YOLOv8-based face & pothole detection.",
+    technologies: ["PyTorch", "YOLOv8", "ONNX", "FiftyOne", "OpenCV", "DDP"],
+    metrics: "Trained RT-DETR & YOLOv8 on WIDER Face; implemented INT8 quantization (PTQ & QAT) for edge deployment; ONNX export pipeline for cross-platform inference; benchmarked custom YOLO-26 against standard architectures",
+    github: "https://github.com/MuthuAjay/object_detection",
+    category: ["Computer Vision", "Object Detection"]
   }
 ];
 
 const Projects = () => {
   const { theme } = useTheme();
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'Computer Vision', 'NLP', 'RAG', 'Transformers', 'Data Engineering', 'Research', 'Classification', 'Segmentation', 'LLMs'];
+  const categories = ['All', 'Computer Vision', 'NLP', 'RAG', 'Transformers', 'Data Engineering', 'Research', 'Classification', 'Segmentation', 'LLMs', 'Object Detection'];
   
   const filteredProjects = filter === 'All' 
     ? projects 
@@ -97,7 +170,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300 overflow-hidden">
+    <section id="projects" className="py-20 bg-cream dark:bg-slate-900 transition-colors duration-300 overflow-hidden">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -105,10 +178,13 @@ const Projects = () => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold mb-6 text-center">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">Featured Projects</span>
+          <p className="text-xs font-semibold tracking-widest uppercase text-sage dark:text-teal-600 mb-3 text-center">
+            My Work
+          </p>
+          <h2 className="font-serif text-3xl font-bold mb-6 text-center">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sage to-warm-accent dark:from-teal-400 dark:to-blue-500">Featured Projects</span>
           </h2>
-          <p className="text-slate-700 dark:text-slate-300 text-center mb-8 max-w-3xl mx-auto transition-colors duration-300">
+          <p className="text-warm-brown dark:text-slate-300 text-center mb-8 max-w-3xl mx-auto transition-colors duration-300">
             A collection of my data science and machine learning projects, focused on computer vision, NLP, and advanced AI techniques.
           </p>
         </motion.div>
@@ -126,9 +202,9 @@ const Projects = () => {
               key={category}
               onClick={() => setFilter(category)}
               className={`px-4 py-2 rounded-full text-sm transition-all ${
-                filter === category 
-                  ? 'bg-teal-500 text-white shadow-md' 
-                  : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors duration-300'
+                filter === category
+                  ? 'bg-warm-brown dark:bg-teal-500 text-cream dark:text-white shadow-md'
+                  : 'bg-warm-soft dark:bg-slate-800 text-muted dark:text-slate-300 hover:bg-cream dark:hover:bg-slate-700 transition-colors duration-300'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -146,59 +222,12 @@ const Projects = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           {filteredProjects.map((project, index) => (
-            <motion.div 
-              key={index} 
-              className="bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden flex flex-col h-full border border-slate-200 dark:border-slate-700 group"
+            <TiltCard
+              key={index}
+              project={project}
+              theme={theme}
               variants={projectVariants}
-              whileHover={{ 
-                y: -10, 
-                boxShadow: theme === 'dark' 
-                  ? '0 25px 50px -12px rgba(45, 212, 191, 0.15)' 
-                  : '0 25px 50px -12px rgba(0, 0, 0, 0.15)' 
-              }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
-              {/* Project top gradient bar */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-teal-400 to-blue-500 transform origin-left transition-transform duration-300 group-hover:scale-x-100" />
-              
-              <div className="p-6 flex-grow">
-                <h3 className="text-xl font-semibold mb-3 text-teal-600 dark:text-teal-400 transition-colors duration-300 group-hover:translate-x-1 transition-transform">{project.title}</h3>
-                <p className="text-slate-700 dark:text-slate-300 mb-4 flex-grow transition-colors duration-300">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 bg-slate-200 dark:bg-slate-700 rounded-full text-sm text-teal-600 dark:text-teal-400 transition-all duration-300 hover:scale-105">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="bg-slate-200/70 dark:bg-slate-700/50 p-3 rounded mb-4 transition-colors duration-300">
-                  <h4 className="text-sm font-semibold text-teal-600 dark:text-teal-300 mb-1 transition-colors duration-300">Metrics & Outcomes:</h4>
-                  <p className="text-sm text-slate-700 dark:text-slate-300 transition-colors duration-300">{project.metrics}</p>
-                </div>
-              </div>
-              
-              {/* Card footer */}
-              <div className="p-4 bg-slate-200/50 dark:bg-slate-700/30 flex justify-between items-center transition-colors duration-300">
-                <motion.a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 bg-slate-100 dark:bg-slate-600 rounded-lg text-teal-600 dark:text-teal-300 transition-all duration-300"
-                  whileHover={{ scale: 1.05, backgroundColor: theme === 'dark' ? '#334155' : '#e2e8f0' }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Github className="h-4 w-4 mr-2" />
-                  View Code
-                </motion.a>
-                <div className="flex gap-1">
-                  {project.category.map((cat, i) => (
-                    <span key={i} className="text-xs text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                      {cat}{i < project.category.length - 1 ? ',' : ''}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            />
           ))}
         </motion.div>
         
@@ -213,7 +242,7 @@ const Projects = () => {
             href="https://github.com/MuthuAjay" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg transition-all duration-300 shadow-lg relative overflow-hidden group"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-warm-brown to-warm-dark dark:from-teal-500 dark:to-blue-600 text-cream dark:text-white rounded-lg transition-all duration-300 shadow-lg relative overflow-hidden group"
             whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(0, 0, 0, 0.2)" }}
             whileTap={{ scale: 0.98 }}
           >
